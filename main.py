@@ -40,21 +40,23 @@ def main(filename):
     except FileNotFoundError:
         """FileError handling"""
         print("Usage: factors <filename>")
-        """Error: File '{filename}' not found. Ensure tests/test00 is present!"""
+        """Error: File '{filename}' not found. Ensure ./test00 is present!"""
         sys.exit(1)
     except Exception as e:
         """Other exception handling"""
         print(f"{e}, fail!")
         """Error: An unexpected error occurred - {e}"""
     for num in numbers:
-        """This loop iterates through each number in the list obtained from the file."""
+        """loop iterating each number in the list obtained from the file."""
         try:
             num = int(num)
-            """converts the string representation of the number to an integer"""
+            """converts the string to an integer"""
             if num <= 1 or num > 1718944270642558716715:
                 """Invalid natural number"""
-                print(f"Error: {num} is not a valid natural number greater than 1 OR")
-                print("Skipping factorization for {} as it exceeds the threshold.".format(num))
+                print(f"""Error: {num} is not a valid natural number
+                      greater than 1 OR""")
+                print(f"""Skipping factorization for {num}
+                      as it exceeds the threshold.""")
                 continue
             factor_pair = factorize(num)
             if factor_pair is not None:
@@ -66,8 +68,10 @@ def main(filename):
             """Other exception handling"""
             print(f"Error: An unexpected error occurred - {e}")
 
+
 if __name__ == "__main__":
-    """checks if the script is being run as the main program (__name__ is set to "__main__")."""
+    """checks if the script is being run as the main program
+        (__name__ is set to "__main__")."""
     if len(sys.argv) != 2:
         """checks if the correct number of command-line arguments is provided.
             If not, it prints a usage message, sleeps for 5 seconds and exits.
