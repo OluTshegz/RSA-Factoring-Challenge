@@ -11,11 +11,22 @@ import time
 
 
 def factorize(number):
-    """a function that takes number as argument"""
+    factors = []
+    max_iterations = 1718944270642558716715
     for x in range(2, int(number**0.5) + 1):
-        """a simple loop to check for factors up to the square root of number"""
+        if x > max_iterations:
+            break
         if number % x == 0:
-            print("{:d}={:d}*{:d}".format(number, x, number//x))
+            factors.append((x, number // x))
+            if len(factors) >= 2:
+                break
+    if factors:
+        for factor in factors:
+            print("{:d}={:d}*{:d}".format(number, factor[1], factor[0]))
+        return factors[0]
+    else:
+        print("{:d} is a prime number.".format(number))
+        return None
 
 
 def main(filename):
@@ -40,12 +51,14 @@ def main(filename):
         try:
             num = int(num)
             """converts the string representation of the number to an integer"""
-            if num <= 1:
+            if num <= 1 or num > 1718944270642558716715:
                 """Invalid natural number"""
-                print(f"Error: {num} is not a valid natural number greater than 1.")
+                print(f"Error: {num} is not a valid natural number greater than 1 OR")
+                print("Skipping factorization for {} as it exceeds the threshold.".format(num))
                 continue
-            num_1, num_2 = factorize(num)
-            print("{:d}={:d}*{:d}".format(num, num_1, num_2))
+            factor_pair = factorize(num)
+            if factor_pair is not None:
+                num_1, num_2 = factor_pair
         except ValueError:
             """ValueError handling"""
             print(f"Error: '{num}' is not a valid natural number.")
